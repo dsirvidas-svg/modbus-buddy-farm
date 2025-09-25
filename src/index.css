@@ -8,35 +8,66 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Industrial ERV Control Theme */
+    --background: 215 28% 8%;
+    --foreground: 210 40% 95%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 215 25% 12%;
+    --card-foreground: 210 40% 95%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 215 28% 8%;
+    --popover-foreground: 210 40% 95%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 195 100% 50%;
+    --primary-foreground: 215 28% 8%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 215 20% 18%;
+    --secondary-foreground: 210 40% 95%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 215 20% 15%;
+    --muted-foreground: 210 20% 70%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 142 86% 55%;
+    --accent-foreground: 215 28% 8%;
 
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 215 20% 20%;
+    --input: 215 20% 18%;
+    --ring: 195 100% 50%;
 
     --radius: 0.5rem;
+
+    /* Industrial color palette */
+    --industrial-cyan: 195 100% 50%;
+    --industrial-green: 142 86% 55%;
+    --industrial-orange: 25 95% 55%;
+    --industrial-red: 0 84% 60%;
+    --industrial-blue: 220 70% 60%;
+    --industrial-gray: 215 20% 25%;
+    --industrial-dark: 215 28% 8%;
+    --industrial-light: 210 40% 95%;
+
+    /* Status colors */
+    --status-active: 142 86% 55%;
+    --status-warning: 25 95% 55%;
+    --status-error: 0 84% 60%;
+    --status-idle: 210 20% 70%;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(195 100% 50%), hsl(220 70% 60%));
+    --gradient-accent: linear-gradient(135deg, hsl(142 86% 55%), hsl(195 100% 50%));
+    --gradient-card: linear-gradient(135deg, hsl(215 25% 12%), hsl(215 20% 15%));
+
+    /* Shadows */
+    --shadow-glow: 0 0 20px hsl(195 100% 50% / 0.3);
+    --shadow-active: 0 0 15px hsl(142 86% 55% / 0.4);
+    --shadow-card: 0 8px 32px hsl(215 28% 5% / 0.5);
+
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-fast: all 0.15s ease-out;
 
     --sidebar-background: 0 0% 98%;
 
