@@ -1,7 +1,7 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'app.lovable.1d7eed2e21874433b2b6ee190ff849fc',
+  appId: 'com.lovable.modbusbud',
   appName: 'modbus-buddy-farm',
   webDir: 'dist',
   server: {
