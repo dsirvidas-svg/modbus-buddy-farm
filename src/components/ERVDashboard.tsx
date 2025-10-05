@@ -51,15 +51,22 @@ export const ERVDashboard = () => {
   // Simulate real-time data updates
   useEffect(() => {
     const interval = setInterval(() => {
-      setErvData(prev => ({
-        ...prev,
-        supplyTemp: prev.supplyTemp + (Math.random() - 0.5) * 0.5,
-        exhaustTemp: prev.exhaustTemp + (Math.random() - 0.5) * 0.5,
-        supplyHumidity: Math.max(0, Math.min(100, prev.supplyHumidity + (Math.random() - 0.5) * 2)),
-        exhaustHumidity: Math.max(0, Math.min(100, prev.exhaustHumidity + (Math.random() - 0.5) * 2)),
-        airflow: Math.max(0, prev.airflow + (Math.random() - 0.5) * 50),
-        efficiency: Math.max(0, Math.min(100, prev.efficiency + (Math.random() - 0.5) * 1))
-      }));
+      setErvData(prev => {
+        // Calculate average fan speed to determine airflow and efficiency
+        const avgFanSpeed = (prev.supplyFanSpeed + prev.exhaustFanSpeed) / 2;
+        const baseAirflow = (avgFanSpeed / 100) * 1500; // Max airflow at 100% fan speed
+        const baseEfficiency = Math.min(95, 70 + (avgFanSpeed / 100) * 20); // Efficiency increases with speed
+        
+        return {
+          ...prev,
+          supplyTemp: prev.supplyTemp + (Math.random() - 0.5) * 0.5,
+          exhaustTemp: prev.exhaustTemp + (Math.random() - 0.5) * 0.5,
+          supplyHumidity: Math.max(0, Math.min(100, prev.supplyHumidity + (Math.random() - 0.5) * 2)),
+          exhaustHumidity: Math.max(0, Math.min(100, prev.exhaustHumidity + (Math.random() - 0.5) * 2)),
+          airflow: Math.max(0, baseAirflow + (Math.random() - 0.5) * 50),
+          efficiency: Math.max(0, Math.min(100, baseEfficiency + (Math.random() - 0.5) * 2))
+        };
+      });
     }, 2000);
 
     return () => clearInterval(interval);
