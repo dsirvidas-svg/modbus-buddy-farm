@@ -1,16 +1,11 @@
-import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Slider } from '@/components/ui/slider';
-import { Switch } from '@/components/ui/switch';
 import { 
   Thermometer, 
   Wind, 
   Droplets, 
   Power, 
   Settings, 
-  AlertTriangle,
   Activity,
   Gauge
 } from 'lucide-react';
@@ -18,69 +13,19 @@ import { MetricCard } from './MetricCard';
 import { StatusIndicator } from './StatusIndicator';
 import { ControlPanel } from './ControlPanel';
 import { DataChart } from './DataChart';
-
-interface ERVData {
-  supplyTemp: number;
-  exhaustTemp: number;
-  supplyHumidity: number;
-  exhaustHumidity: number;
-  supplyFanSpeed: number;
-  exhaustFanSpeed: number;
-  airflow: number;
-  efficiency: number;
-  status: 'running' | 'stopped' | 'maintenance' | 'error';
-  modeSetting: 'auto' | 'manual' | 'economizer';
-}
+import { useModbusConnection } from '@/hooks/useModbusConnection';
 
 export const ERVDashboard = () => {
-  const [ervData, setErvData] = useState<ERVData>({
-    supplyTemp: 22.5,
-    exhaustTemp: 24.2,
-    supplyHumidity: 45,
-    exhaustHumidity: 52,
-    supplyFanSpeed: 10,
-    exhaustFanSpeed: 10,
-    airflow: 150,
-    efficiency: 72,
-    status: 'running',
-    modeSetting: 'auto'
-  });
-
-  const [isConnected, setIsConnected] = useState(true);
-
-  // Simulate real-time data updates
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setErvData(prev => {
-        // Calculate average fan speed to determine airflow and efficiency
-        const avgFanSpeed = (prev.supplyFanSpeed + prev.exhaustFanSpeed) / 2;
-        const baseAirflow = (avgFanSpeed / 100) * 1500; // Max airflow at 100% fan speed
-        const baseEfficiency = Math.min(95, 70 + (avgFanSpeed / 100) * 20); // Efficiency increases with speed
-        
-        return {
-          ...prev,
-          supplyTemp: prev.supplyTemp + (Math.random() - 0.5) * 0.5,
-          exhaustTemp: prev.exhaustTemp + (Math.random() - 0.5) * 0.5,
-          supplyHumidity: Math.max(0, Math.min(100, prev.supplyHumidity + (Math.random() - 0.5) * 2)),
-          exhaustHumidity: Math.max(0, Math.min(100, prev.exhaustHumidity + (Math.random() - 0.5) * 2)),
-          airflow: Math.max(0, baseAirflow + (Math.random() - 0.5) * 50),
-          efficiency: Math.max(0, Math.min(100, baseEfficiency + (Math.random() - 0.5) * 2))
-        };
-      });
-    }, 2000);
-
-    return () => clearInterval(interval);
-  }, []);
+  const { ervData, isConnected, setFanSpeed, setSystemStatus } = useModbusConnection();
 
   const handleFanSpeedChange = (type: 'supply' | 'exhaust', speed: number[]) => {
-    setErvData(prev => ({
-      ...prev,
-      [`${type}FanSpeed`]: speed[0]
-    }));
+    setFanSpeed(type, speed[0]);
   };
 
-  const handleStatusChange = (newStatus: ERVData['status']) => {
-    setErvData(prev => ({ ...prev, status: newStatus }));
+  const handleStatusChange = (newStatus: 'running' | 'stopped' | 'maintenance' | 'error') => {
+    if (newStatus === 'running' || newStatus === 'stopped') {
+      setSystemStatus(newStatus);
+    }
   };
 
   return (

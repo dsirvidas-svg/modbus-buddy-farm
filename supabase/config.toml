@@ -1,1 +1,4 @@
 project_id = "ufexnowpgtfebngukuxc"
+
+[functions.modbus-read]
+verify_jwt = false
