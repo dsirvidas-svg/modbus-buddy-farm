@@ -38,10 +38,10 @@ export const ERVDashboard = () => {
     exhaustTemp: 24.2,
     supplyHumidity: 45,
     exhaustHumidity: 52,
-    supplyFanSpeed: 75,
-    exhaustFanSpeed: 78,
-    airflow: 1250,
-    efficiency: 82,
+    supplyFanSpeed: 10,
+    exhaustFanSpeed: 10,
+    airflow: 150,
+    efficiency: 72,
     status: 'running',
     modeSetting: 'auto'
   });
